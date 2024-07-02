@@ -4,6 +4,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static CheeseService cheeseService = new CheeseService();
     private static CheeseShop cheeseShop = new CheeseShop();
+    private static CustomerService customerService = new CustomerService();
 
     public static void main(String[] args) {
         while (true) {
@@ -49,6 +50,7 @@ public class Main {
                 System.out.println("3 - show cart;");
                 System.out.println("4 - change access type;");
                 System.out.println("5 - checkout;");
+                System.out.println("6 - register new customer;");
 
                 var customerAction = scanner.nextLine();
 
@@ -63,10 +65,13 @@ public class Main {
                 } else if (customerAction.equals("4")) {
                     continue;
                 } else if (customerAction.equals("5")) {
-                    System.out.println("Total amount is: " + cheeseShop.checkout());
-                    System.out.println("Thank you for using our shop! See you next time!");
+                    System.out.println("Add your name:");
+                    String name = scanner.nextLine();
                     break;
+                } else if (customerAction.equals("6")) {
+                    addCustomer();
                 }
+                
             }
         }
     }
@@ -130,5 +135,15 @@ public class Main {
         System.out.println("Provide an item name");
         String name = scanner.nextLine();
         cheeseShop.removeFromCart(name);
+    }
+
+    public static void addCustomer() {
+        System.out.println("Write your name:");
+        String name = scanner.nextLine();
+        System.out.println("Add you balance:");
+        int balance = scanner.nextInt();
+        scanner.nextLine();
+        var customer = new Customer(name, balance);
+        customerService.addCustomer(customer);
     }
 }
